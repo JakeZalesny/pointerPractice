@@ -1,66 +1,87 @@
-// pointerPractice.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <iomanip>
-using namespace std; 
+using namespace std;
+
+class Account {
+    double balance;
+
+public:
+    Account() {}
+
+    Account(double balance) {
+        this->balance = balance;
+    }
+
+    double getBalance() {
+        return this->balance;
+    }
+
+    void setBalance(double balance) {
+        this->balance = balance;
+    }
+
+    void addBalance(double amount) {
+        this->balance += amount;
+    }
+
+    void subtractBalance(double amount) {
+        this->balance -= amount;
+    }
+};
 
 int main()
 {
-    double accountSam; 
-    double accountSue; 
-    cout << "What is Sam's account balance? $"; 
-    cin >> accountSam; 
+    Account accountSam;
+    Account accountSue;
+
+    cout << "What is Sam's account balance? $";
+    double samBalance;
+    cin >> samBalance;
+    accountSam.setBalance(samBalance);
+
     cout << "What is Sue's account balance? $";
-    cin >> accountSue; 
+    double sueBalance;
+    cin >> sueBalance;
+    accountSue.setBalance(sueBalance);
 
-    double* pAccount = nullptr;
-    double dinner; 
-    double movie; 
+    Account* pAccount = nullptr;
+    double dinner;
+    double movie;
     double iceCream;
-    bool chivalry = true; 
+    bool chivalry = true;
 
-    if (accountSam > accountSue) {
-        pAccount = &accountSam; 
+    if (accountSam.getBalance() > accountSue.getBalance()) {
+        pAccount = &accountSam;
     }
     else
     {
-        pAccount = &accountSue; 
-        chivalry = false; 
+        pAccount = &accountSue;
+        chivalry = false;
     }
 
     cout << "\nCost of date: \n";
     cout << "\tDinner:    $";
-    cin >> dinner; 
-    *pAccount -= dinner; 
-    
-    cout << "\tMovie:     $";
-    cin >> movie; 
-    *pAccount -= movie; 
-    
-    cout << "\tIce Cream: $";
-    cin >> iceCream; 
-    *pAccount -= iceCream; 
+    cin >> dinner;
+    pAccount->subtractBalance(dinner);
 
-    cout << endl; 
+    cout << "\tMovie:     $";
+    cin >> movie;
+    pAccount->subtractBalance(movie);
+
+    cout << "\tIce Cream: $";
+    cin >> iceCream;
+    pAccount->subtractBalance(iceCream);
+
+    cout << endl;
+    cout << setprecision(2) << fixed;
     if (chivalry) {
-        cout << "Account Sam: $" << fixed << setprecision(2) << *pAccount << endl;
-        cout << "Account Sue: $" << fixed << setprecision(2) << accountSue << endl;
+        cout << "Account Sam: $" << fixed << setprecision(2) << pAccount->getBalance() << endl;
+        cout << "Account Sue: $" << fixed << setprecision(2) << accountSue.getBalance() << endl;
     }
 
     else {
-        cout << "Account Sam: $" << setprecision(2) << accountSam << endl;
-        cout << "Account Sue: $" << setprecision(2) << *pAccount << endl;
+        cout << "Account Sam: $" << setprecision(2) << accountSam.getBalance() << endl;
+        cout << "Account Sue: $" << setprecision(2) << pAccount->getBalance() << endl;
     }
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
